@@ -24,6 +24,7 @@
 using System;
 using Akka.Actor;
 using Akka.Event;
+using Akka.Pattern;
 using Akka.Persistence;
 using Akkatecture.Commands;
 using Akkatecture.Core;
@@ -116,22 +117,19 @@ namespace Akkatecture.Aggregates
 
         protected virtual IActorRef CreateAggregate(TIdentity aggregateId)
         {
-            var aggregateRef = Context.ActorOf(Props.Create<TAggregate>(aggregateId), aggregateId.Value);
-            Context.Watch(aggregateRef);
+            var aggregateProps = Props.Create<TAggregate>(aggregateId);
+            var aggregateName = aggregateId.Value;
+            var supervisorName = typeof(TAggregate).GetAggregateName() + "-supervisor";
+            var supervisorProps = BackoffSupervisor.Props(
+                Backoff.OnStop(
+                    aggregateProps,
+                    childName: aggregateName,
+                    minBackoff: TimeSpan.FromSeconds(2),
+                    maxBackoff: TimeSpan.FromSeconds(20),
+                    randomFactor: 0.2));
+            
+            var aggregateRef = Context.ActorOf(supervisorProps, supervisorName);
             return aggregateRef;
-        }
-
-        protected override SupervisorStrategy SupervisorStrategy()
-        {
-            return new OneForOneStrategy(
-                maxNrOfRetries: 3,
-                withinTimeMilliseconds: 3000,
-                localOnlyDecider: x =>
-                {
-
-                    Logger.Warning($"[{GetType().PrettyPrint()}] Exception={x.ToString()} to be decided.");
-                    return Directive.Restart;
-                });
         }
 
     }
