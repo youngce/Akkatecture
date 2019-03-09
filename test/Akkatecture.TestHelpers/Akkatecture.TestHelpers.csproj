@@ -8,7 +8,7 @@
     <Title>Akkatecture.TestHelpers</Title>
     <Authors>Lutando Ngqakaza</Authors>
     <Company>Lutando Ngqakaza</Company>
-    <Copyright>Copyright (c) Lutando Ngqakaza 2018 - 2018</Copyright>
+    <Copyright>Copyright (c) Lutando Ngqakaza 2018 - 2019</Copyright>
     <Description>
         Akkatecture.TestHelpers project holds all the necassary helper classes and
         methods to make the actual tests easier to maintain and read.
@@ -16,14 +16,11 @@
     <PackageTags>akka cqrs es eventsourcing</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Lutando/Akkatecture</RepositoryUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/Lutando/Akkatecture/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en-GB</NeutralLanguage>
     <PackageReleaseNotes>Externally Updated</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Akkatecture\Akkatecture.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Moq" Version="4.8.2" />
   </ItemGroup>
 </Project>

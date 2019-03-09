@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2018 Lutando Ngqakaza
+// Copyright (c) 2018 - 2019 Lutando Ngqakaza
 // https://github.com/Lutando/Akkatecture 
 // 
 // 
@@ -35,7 +35,7 @@ namespace Akkatecture.Examples.Api.Domain.Sagas
     public class ResourceCreationSaga : AggregateSaga<ResourceCreationSaga, ResourceCreationSagaId, ResourceCreationSagaState>,
         ISagaIsStartedByAsync<Resource, ResourceId, ResourceCreatedEvent>
     {
-        public async Task Handle(IDomainEvent<Resource, ResourceId, ResourceCreatedEvent> domainEvent)
+        public async Task HandleAsync(IDomainEvent<Resource, ResourceId, ResourceCreatedEvent> domainEvent)
         {
             //simulates a long running process
             var resourceId = domainEvent.AggregateIdentity;

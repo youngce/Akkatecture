@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2018 Lutando Ngqakaza
+// Copyright (c) 2018 - 2019 Lutando Ngqakaza
 // https://github.com/Lutando/Akkatecture 
 // 
 // 
@@ -22,13 +22,12 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Akkatecture.Aggregates;
-using Akkatecture.Examples.Api.Domain.Aggregates.Resource.Events;
 using Akkatecture.Examples.Api.Domain.Sagas.Events;
 using Akkatecture.Sagas;
 
 namespace Akkatecture.Examples.Api.Domain.Sagas
 {
-    public class ResourceCreationSagaState : SagaState<ResourceCreationSaga, ResourceCreationSagaId, IEventApplier<ResourceCreationSaga, ResourceCreationSagaId>>,
+    public class ResourceCreationSagaState : SagaState<ResourceCreationSaga, ResourceCreationSagaId, IMessageApplier<ResourceCreationSaga, ResourceCreationSagaId>>,
         IApply<ResourceCreationStartedEvent>,
         IApply<ResourceCreationProgressEvent>,
         IApply<ResourceCreationEndedEvent>

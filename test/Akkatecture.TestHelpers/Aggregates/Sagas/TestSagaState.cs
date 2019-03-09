@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2018 Lutando Ngqakaza
+// Copyright (c) 2018 - 2019 Lutando Ngqakaza
 // https://github.com/Lutando/Akkatecture 
 // 
 // 
@@ -28,7 +28,7 @@ using Akkatecture.TestHelpers.Aggregates.Sagas.Events;
 
 namespace Akkatecture.TestHelpers.Aggregates.Sagas
 {
-    public class TestSagaState : SagaState<TestSaga, TestSagaId, IEventApplier<TestSaga, TestSagaId>>,
+    public class TestSagaState : SagaState<TestSaga, TestSagaId, IMessageApplier<TestSaga, TestSagaId>>,
         IApply<TestSagaStartedEvent>,
         IApply<TestSagaTransactionCompletedEvent>,
         IApply<TestSagaCompletedEvent>

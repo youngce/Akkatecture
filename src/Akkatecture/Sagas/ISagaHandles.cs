@@ -1,10 +1,10 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2015-2018 Rasmus Mikkelsen
-// Copyright (c) 2015-2018 eBay Software Foundation
+// Copyright (c) 2015-2019 Rasmus Mikkelsen
+// Copyright (c) 2015-2019 eBay Software Foundation
 // Modified from original source https://github.com/eventflow/EventFlow
 //
-// Copyright (c) 2018 Lutando Ngqakaza
+// Copyright (c) 2018 - 2019 Lutando Ngqakaza
 // https://github.com/Lutando/Akkatecture 
 // 
 // 
@@ -45,6 +45,6 @@ namespace Akkatecture.Sagas
         where TAggregate : IAggregateRoot<TIdentity>
         where TIdentity : IIdentity
     {
-        Task Handle(IDomainEvent<TAggregate, TIdentity, TAggregateEvent> domainEvent);
+        Task HandleAsync(IDomainEvent<TAggregate, TIdentity, TAggregateEvent> domainEvent);
     }
 }

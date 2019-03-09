@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2018 Lutando Ngqakaza
+// Copyright (c) 2018 - 2019 Lutando Ngqakaza
 // https://github.com/Lutando/Akkatecture 
 // 
 // 
@@ -32,6 +32,11 @@ namespace Akkatecture.Extensions
             where TIdentity : IIdentity
         {
             return context.Child(identity.Value);
+        }
+
+        public static void Reply(this IActorContext context, object message)
+        {
+            context.Sender.Tell(message);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2018 Lutando Ngqakaza
+// Copyright (c) 2018 - 2019 Lutando Ngqakaza
 // https://github.com/Lutando/Akkatecture 
 // 
 // 
@@ -29,9 +29,5 @@ namespace Akkatecture.Examples.Api.Domain.Aggregates.Resource.Events
     [EventVersion("ResourceCreated", 1)]
     public class ResourceCreatedEvent : AggregateEvent<Resource, ResourceId>
     {
-        public ResourceCreatedEvent()
-        {
-            
-        }
     }
 }
