@@ -237,7 +237,11 @@ namespace Akkatecture.Sagas.AggregateSaga
         protected virtual void Emit<TAggregateEvent>(TAggregateEvent aggregateEvent, IMetadata metadata = null)
             where TAggregateEvent : IAggregateEvent<TAggregateSaga, TIdentity>
         {
+            // converting aggregateEvent to committedEvent, 
+            // there are the fields: saga id, aggragate event, metadata, timestamp of now, and version in the committedEvent
             var committedEvent = From(aggregateEvent, Version, metadata);
+            
+            // update the state and publish DoaminEvent after the committedEvent is persisted
             Persist(committedEvent, ApplyCommittedEvent);
 
         }
@@ -283,6 +287,7 @@ namespace Akkatecture.Sagas.AggregateSaga
                 EventVersion = eventDefinition.Version
             };
             eventMetadata.Add(MetadataKeys.TimestampEpoch, now.ToUnixTime().ToString());
+            // add extra metadata to eventMetadata
             if (metadata != null)
             {
                 eventMetadata.AddRange(metadata);
@@ -301,7 +306,9 @@ namespace Akkatecture.Sagas.AggregateSaga
         protected void ApplyCommittedEvent<TAggregateEvent>(ICommittedEvent<TAggregateSaga, TIdentity, TAggregateEvent> committedEvent)
             where TAggregateEvent : IAggregateEvent<TAggregateSaga, TIdentity>
         {
+            // getting the 'Apply' method of the aggrate State that takes aggregate Event as argument
             var applyMethods = GetEventApplyMethods(committedEvent.AggregateEvent);
+            // may such as 'updateState' in scala
             applyMethods(committedEvent.AggregateEvent);
 
             Logger.Info($"[{Name}] With Id={Id} Commited and Applied [{typeof(TAggregateEvent).PrettyPrint()}]");
@@ -310,6 +317,7 @@ namespace Akkatecture.Sagas.AggregateSaga
 
             var domainEvent = new DomainEvent<TAggregateSaga, TIdentity, TAggregateEvent>(Id, committedEvent.AggregateEvent, committedEvent.Metadata, committedEvent.Timestamp, Version);
 
+            // publishing to EventStream
             Publish(domainEvent);
 
             if (SnapshotStrategy.ShouldCreateSnapshot(this))
